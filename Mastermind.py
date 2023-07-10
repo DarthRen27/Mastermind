@@ -21,8 +21,7 @@ def player():
     playcount = 0
     while playcount < 4:
         color = input("Enter the color you think is at position " + str(playcount) + ". Options are RED, BLUE, YELLOW, ORANGE, PURPLE, BROWN, PINK, NOTHING: ")
-        color.capitalize()
-        choice.append(color)
+        choice.append(color.upper())
         playcount += 1
     return choice
 
@@ -32,8 +31,7 @@ def playeraffirmation():
     playcount = 0
     while playcount < 4:
         correction = input("If position " + str(playcount) + " is the correct color and is in the correct space enter BLACK, if it is the correct color but in the wrong space enter WHITE, if it is not the correct color or space enter NOTHING: ")
-        correction.capitalize()
-        verdict.append(correction)
+        verdict.append(correction.upper())
         playcount += 1
     return verdict
     
@@ -46,12 +44,16 @@ def aiaffirmation(plan, check):
         while aicount2 < 4:
             if check[aicount] == plan[aicount2]:
                 if aicount2 == aicount:
-                    affirmation += "BLACK"
+                    affirmation += "BLACK "
+                    correct = True
                 else:
-                    affirmation += "WHITE"
+                    affirmation += "WHITE "
+                    correct = True
             aicount2 += 1
         if correct == False:
-            affirmation += "NOTHING"
+            print("thame")
+            affirmation += "NOTHING "
+        correct == False
         aicount2 == 0
         aicount += 1
     return affirmation
@@ -78,6 +80,9 @@ if ai == "No":
         check = player()
         out = aiaffirmation(plan, check)
         print(out)
+        if out == "BLACK BLACK BLACK BLACK ":
+            print("That's correct, you win")
+            count += 10
         count += 1
         
 else:
@@ -94,9 +99,6 @@ else:
             else:
                 newguess = random.randint(0,7)
                 aiguess[count2] = colors[newguess]
-            if reduced == False:
-                
-            else:
                 pass
             count2 += 1
         count2 = 0
