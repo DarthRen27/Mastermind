@@ -12,8 +12,9 @@ def aiselection(colors):
     selection = []
     while aicount < 4:
         grab = random.randint(0,7)
-        selection.append(colors[grab])
-        aicount += 1
+        if colors[grab] not in selection:
+            selection.append(colors[grab])
+            aicount += 1
     return selection
 
 def player():
@@ -49,12 +50,14 @@ def aiaffirmation(plan, check):
                 else:
                     affirmation += "WHITE "
                     correct = True
-            aicount2 += 1
+            if correct == True:
+                aicount2 += 4
+            else:
+                aicount2 += 1
         if correct == False:
-            print("thame")
             affirmation += "NOTHING "
-        correct == False
-        aicount2 == 0
+        correct = False
+        aicount2 = 0
         aicount += 1
     return affirmation
         
@@ -66,7 +69,6 @@ count = 0
 count2 = 0
 newguess = 0
 change = 0
-reduced = False
 
 ai = input("Do you want to be the mastermind? Yes or No: ")
 dev = input("Do you want to check that everything is working: ")
