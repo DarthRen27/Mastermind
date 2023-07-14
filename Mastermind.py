@@ -67,8 +67,13 @@ guess = []
 aiguess = []
 count = 0
 count2 = 0
-newguess = 0
-change = 0
+newguess = []
+change = {}
+changecolor = []
+correct = []
+oldpos = 0
+newpos = 0
+aicheck = {}
 
 ai = input("Do you want to be the mastermind? Yes or No: ")
 dev = input("Do you want to check that everything is working: ")
@@ -86,6 +91,8 @@ if ai == "No":
             print("That's correct, you win")
             count += 10
         count += 1
+    if count > 10:
+        print("You've lost, the plan was " + plan)        
         
 else:
     plan = player()
@@ -95,14 +102,25 @@ else:
     while count < 9:
         while count2 < 4:
             if rw[count2] == "BLACK":
-                pass
+                correct.append(count2)
             elif rw[count2] == "WHITE":
-                change = count2
+                change.append(count2)
+                changecolor.append(aiguess(count2))
             else:
-                newguess = random.randint(0,7)
-                aiguess[count2] = colors[newguess]
-                pass
+                newguess.append(count2)
             count2 += 1
+        if len(change) != 0:
+            if len(change) > 1:
+                if len(correct) != 0:
+                    pass
+                else:
+                    aiguess = []
+                    while check < len(change):
+                        oldpos = check
+                        newpos = random.randint(1,4)
+                        if newpos not in correct:
+                            aiguess[newpos] = aiguess[oldpos]
+            pass
         count2 = 0
         rw = playeraffirmation(aiguess)
         count += 1
