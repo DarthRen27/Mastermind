@@ -63,6 +63,7 @@ def aiaffirmation(plan, check):
         
 
 colors = "RED", "BLUE", "YELLOW", "ORANGE", "PURPLE", "BROWN", "PINK", "NOTHING"
+possibles = "RED", "BLUE", "YELLOW", "ORANGE", "PURPLE", "BROWN", "PINK", "NOTHING"
 guess = []
 aiguess = []
 count = 0
@@ -92,7 +93,7 @@ if ai == "No":
             count += 10
         count += 1
     if count == 10:
-        print("You've lost, the plan was " + plan)        
+        print("You've lost, the plan was " + plan)
         
 else:
     plan = player()
@@ -112,15 +113,18 @@ else:
         if len(change) != 0:
             if len(change) > 1:
                 if len(correct) != 0:
+                    #Figure out index
+                    #Iterate through guess and move the whites and remove the nothings
                     pass
                 else:
                     aiguess = []
                     while check < len(change):
                         oldpos = check
                         newpos = random.randint(1,4)
-                        if newpos not in correct:
+                        if newpos != oldpos:
                             aiguess[newpos] = aiguess[oldpos]
             pass
         count2 = 0
+        change = {}
         rw = playeraffirmation(aiguess)
         count += 1
