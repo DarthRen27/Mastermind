@@ -91,7 +91,7 @@ if ai == "No":
             print("That's correct, you win")
             count += 10
         count += 1
-    if count > 10:
+    if count == 10:
         print("You've lost, the plan was " + plan)        
         
 else:
