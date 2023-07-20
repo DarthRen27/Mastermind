@@ -69,12 +69,13 @@ aiguess = []
 count = 0
 count2 = 0
 newguess = []
-change = {}
-changecolor = []
-correct = []
+change = []
+noplace = []
+correct = {}
 oldpos = 0
 newpos = 0
 aicheck = {}
+go = False
 
 ai = input("Do you want to be the mastermind? Yes or No: ")
 dev = input("Do you want to check that everything is working: ")
@@ -103,18 +104,16 @@ else:
     while count < 9:
         while count2 < 4:
             if rw[count2] == "BLACK":
-                correct.append(count2)
+                correct[count2] = rw[count2]
             elif rw[count2] == "WHITE":
-                change.append(count2)
-                changecolor.append(aiguess(count2))
+                change.append((count2,rw[count2]))
             else:
                 newguess.append(count2)
             count2 += 1
         if len(change) != 0:
             if len(change) > 1:
                 if len(correct) != 0:
-                    #Figure out index
-                    #Iterate through guess and move the whites and remove the nothings
+                    
                     pass
                 else:
                     aiguess = []
@@ -123,8 +122,24 @@ else:
                         newpos = random.randint(1,4)
                         if newpos != oldpos:
                             aiguess[newpos] = aiguess[oldpos]
-            pass
+            else:
+                if len(correct) != 0:
+                    oldpos = change[0][0]
+                    noplace = list(correct.keys())
+                    while go != True:
+                        newpos = random.randint(1,4)
+                        if newpos not in noplace:
+                            aiguess[newpos] = change[0][1]
+                            go = True
+                else:
+                    while go != True:
+                        newpos = random.randint(1,4)
+                        if newpos != change[0][0]:
+                            aiguess[newpos] = change[0][1]
+                            go = True
+                    
         count2 = 0
-        change = {}
+        change = []
+        go = False
         rw = playeraffirmation(aiguess)
         count += 1
