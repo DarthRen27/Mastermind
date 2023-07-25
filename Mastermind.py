@@ -116,12 +116,14 @@ else:
                     
                     pass
                 else:
-                    aiguess = []
+                    aiguess = ["","","",""]
                     while check < len(change):
-                        oldpos = check
+                        oldpos = change[check][0]
                         newpos = random.randint(1,4)
                         if newpos != oldpos:
-                            aiguess[newpos] = aiguess[oldpos]
+                            if aiguess[newpos] != "":
+                                aiguess[newpos] = change[check][1]
+                                check += 1
             else:
                 if len(correct) != 0:
                     oldpos = change[0][0]
