@@ -68,7 +68,6 @@ guess = []
 aiguess = []
 count = 0
 count2 = 0
-newguess = []
 change = []
 noplace = []
 correct = {}
@@ -97,6 +96,7 @@ if ai == "No":
         print("You've lost, the plan was " + plan)
         
 else:
+    #Testing
     plan = player()
     aiguess = aiselection(colors)
     print("The AI guesses " + aiguess + ". Please affirm")
@@ -105,41 +105,58 @@ else:
         while count2 < 4:
             if rw[count2] == "BLACK":
                 correct[count2] = rw[count2]
+                noplace.append(count2)
             elif rw[count2] == "WHITE":
                 change.append((count2,rw[count2]))
             else:
-                newguess.append(count2)
+                possibles.remove(rw[count2])
             count2 += 1
-        if len(change) != 0:
-            if len(change) > 1:
-                if len(correct) != 0:
-                    
-                    pass
+        if len(correct == 4):
+            print("You've lost, the AI guessed your plan")
+        else:
+            aiguess = ["", "", "", ""]
+            if len(change) != 0:
+                if len(change) > 1:
+                    if len(correct) != 0:
+                        while check < len(change):
+                            oldpos = change[0][0]
+                            noplace = list(correct.keys())
+                            while go != True:
+                                newpos = random.randint(1,4)
+                                if newpos not in noplace:
+                                    aiguess[newpos] = change[0][1]
+                                    go = True
+                    else:
+                        while check < len(change):
+                            oldpos = change[check][0]
+                            newpos = random.randint(1,4)
+                            if newpos != oldpos:
+                                if aiguess[newpos] != "":
+                                    aiguess[newpos] = change[check][1]
+                                    check += 1
                 else:
-                    aiguess = ["","","",""]
-                    while check < len(change):
-                        oldpos = change[check][0]
-                        newpos = random.randint(1,4)
-                        if newpos != oldpos:
-                            if aiguess[newpos] != "":
-                                aiguess[newpos] = change[check][1]
-                                check += 1
-            else:
-                if len(correct) != 0:
-                    oldpos = change[0][0]
-                    noplace = list(correct.keys())
-                    while go != True:
-                        newpos = random.randint(1,4)
-                        if newpos not in noplace:
-                            aiguess[newpos] = change[0][1]
-                            go = True
-                else:
-                    while go != True:
-                        newpos = random.randint(1,4)
-                        if newpos != change[0][0]:
-                            aiguess[newpos] = change[0][1]
-                            go = True
-                    
+                    if len(correct) != 0:
+                        oldpos = change[0][0]
+                        noplace = list(correct.keys())
+                        while go != True:
+                            newpos = random.randint(1,4)
+                            if newpos not in noplace:
+                                aiguess[newpos] = change[0][1]
+                                go = True
+                    else:
+                        while go != True:
+                            newpos = random.randint(1,4)
+                            if newpos != change[0][0]:
+                                aiguess[newpos] = change[0][1]
+                                go = True
+        for a in noplace:
+            b = correct[a]
+            aiguess[a] = b
+        for x in aiguess:
+            if x == "":
+                z = len(possibles) - 1
+                y = random.randint(0, z)
+                x = possibles[y]
         count2 = 0
         change = []
         go = False
