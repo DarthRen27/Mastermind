@@ -17,13 +17,19 @@ def aiselection(colors):
             aicount += 1
     return selection
 
-def player():
+def player(ai):
     choice = []
     playcount = 0
-    while playcount < 4:
-        color = input("Enter the color you think is at position " + str(playcount) + ". Options are RED, BLUE, YELLOW, ORANGE, PURPLE, BROWN, PINK, NOTHING: ")
-        choice.append(color.upper())
-        playcount += 1
+    if ai == "Yes":
+        while playcount < 4:
+            color = input("Enter the color you want at position " + str(playcount) + ". Options are RED, BLUE, YELLOW, ORANGE, PURPLE, BROWN, PINK, NOTHING: ")
+            choice.append(color.upper())
+            playcount += 1
+    else:
+        while playcount < 4:
+            color = input("Enter the color you think is at position " + str(playcount) + ". Options are RED, BLUE, YELLOW, ORANGE, PURPLE, BROWN, PINK, NOTHING: ")
+            choice.append(color.upper())
+            playcount += 1
     return choice
 
 def playeraffirmation():
@@ -97,7 +103,7 @@ if ai == "No":
         
 else:
     #Testing
-    plan = player()
+    plan = player(ai)
     aiguess = aiselection(colors)
     print("The AI guesses " + aiguess + ". Please affirm")
     rw = playeraffirmation(aiguess)
@@ -105,7 +111,6 @@ else:
         while count2 < 4:
             if rw[count2] == "BLACK":
                 correct[count2] = rw[count2]
-                noplace.append(count2)
             elif rw[count2] == "WHITE":
                 change.append((count2,rw[count2]))
             else:
