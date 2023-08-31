@@ -69,7 +69,7 @@ def aiaffirmation(plan, check):
         
 
 colors = "RED", "BLUE", "YELLOW", "ORANGE", "PURPLE", "BROWN", "PINK", "NOTHING"
-possibles = "RED", "BLUE", "YELLOW", "ORANGE", "PURPLE", "BROWN", "PINK", "NOTHING"
+possibles = ["RED", "BLUE", "YELLOW", "ORANGE", "PURPLE", "BROWN", "PINK", "NOTHING"]
 guess = []
 aiguess = []
 count = 0
@@ -105,8 +105,8 @@ else:
     #Testing
     plan = player(ai)
     aiguess = aiselection(colors)
-    print("The AI guesses " + aiguess + ". Please affirm")
-    rw = playeraffirmation(aiguess)
+    print("The AI guesses " + aiguess[0] + ", " + aiguess[1] + ", " + aiguess[2] + ", " + aiguess[3] + ". Please affirm")
+    rw = playeraffirmation()
     while count < 9:
         while count2 < 4:
             if rw[count2] == "BLACK":
