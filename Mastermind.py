@@ -110,13 +110,13 @@ else:
     while count < 9:
         while count2 < 4:
             if rw[count2] == "BLACK":
-                correct[count2] = rw[count2]
+                correct[count2] = aiguess[count2]
             elif rw[count2] == "WHITE":
-                change.append((count2,rw[count2]))
+                change.append((count2,aiguess[count2]))
             else:
-                possibles.remove(rw[count2])
+                possibles.remove(aiguess[count2])
             count2 += 1
-        if len(correct == 4):
+        if len(correct) == 4:
             print("You've lost, the AI guessed your plan")
         else:
             aiguess = ["", "", "", ""]
