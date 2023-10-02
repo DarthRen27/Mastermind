@@ -79,6 +79,7 @@ noplace = []
 correct = {}
 oldpos = 0
 newpos = 0
+check = 0
 aicheck = {}
 go = False
 
@@ -91,7 +92,7 @@ if ai == "No":
         print(plan)
     while count < 10:
         out = ""
-        check = player()
+        check = player(ai)
         out = aiaffirmation(plan, check)
         print(out)
         if out == "BLACK BLACK BLACK BLACK ":
