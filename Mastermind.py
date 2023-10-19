@@ -107,8 +107,8 @@ else:
     plan = player(ai)
     aiguess = aiselection(colors)
     print("The AI guesses " + aiguess[0] + ", " + aiguess[1] + ", " + aiguess[2] + ", " + aiguess[3] + ". Please affirm")
-    rw = playeraffirmation()
     while count < 9:
+        rw = playeraffirmation()
         while count2 < 4:
             if rw[count2] == "BLACK":
                 correct[count2] = aiguess[count2]
