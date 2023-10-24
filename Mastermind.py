@@ -128,7 +128,7 @@ else:
                             oldpos = change[0][0]
                             noplace = list(correct.keys())
                             while go != True:
-                                newpos = random.randint(1,4)
+                                newpos = random.randint(0,3)
                                 if newpos not in noplace:
                                     aiguess[newpos] = change[0][1]
                                     go = True
@@ -145,13 +145,13 @@ else:
                         oldpos = change[0][0]
                         noplace = list(correct.keys())
                         while go != True:
-                            newpos = random.randint(1,4)
+                            newpos = random.randint(0,3)
                             if newpos not in noplace:
                                 aiguess[newpos] = change[0][1]
                                 go = True
                     else:
                         while go != True:
-                            newpos = random.randint(1,4)
+                            newpos = random.randint(0,3)
                             if newpos != change[0][0]:
                                 aiguess[newpos] = change[0][1]
                                 go = True
@@ -166,5 +166,5 @@ else:
         count2 = 0
         change = []
         go = False
-        rw = playeraffirmation(aiguess)
+        rw = playeraffirmation()
         count += 1
