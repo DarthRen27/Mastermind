@@ -135,7 +135,7 @@ else:
                     else:
                         while check < len(change):
                             oldpos = change[check][0]
-                            newpos = random.randint(1,4)
+                            newpos = random.randint(0,3)
                             if newpos != oldpos:
                                 if aiguess[newpos] != "":
                                     aiguess[newpos] = change[check][1]
