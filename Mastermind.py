@@ -176,5 +176,6 @@ else:
         count2 = 0
         change = []
         go = False
+        print("The AI guesses " + aiguess[0] + ", " + aiguess[1] + ", " + aiguess[2] + ", " + aiguess[3] + ". Please affirm")
         rw = playeraffirmation()
         count += 1
