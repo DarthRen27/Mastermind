@@ -71,9 +71,55 @@ def aiaffirmation(plan, check):
         aicount += 1
     return affirmation
 
-def reposition():
+def reposition(go):
     #Reposition the correct colors
-    check = 0
+    check2 = 0
+    openpos = []
+    oldpos = 0
+    newpos = 0
+    allpos = [0, 1, 2, 3]
+    for x in allpos:
+        if x not in noplace:
+            openpos.append(x)
+    #Have the AI create new guess given information
+    aiguess = ["", "", "", ""]
+    if len(change) != 0:
+        #If the number of whites is greater than one
+        if len(change) > 1:
+            #If the number of blacks is not zero
+            if len(correct) != 0:
+                while check2 < len(change)-1:
+                    oldpos = change[0][0]
+                    while go != True:
+                        newpos = openpos[random.randint(0,len(openpos)-1)]
+                        aiguess[newpos] = change[0][1]
+                        go = True
+                        check2 += 1
+            else:
+                #If the number of blacks is zero
+                while check2 < len(change)-1:
+                    oldpos = change[check][0]
+                    newpos = random.randint(0,3)
+                    if newpos != oldpos:
+                        if aiguess[newpos] != "":
+                            aiguess[newpos] = change[check][1]
+                            check2 += 1
+        else:
+            #If the number of whites is one
+            if len(correct) != 0:
+                #If the number of blacks is not zero
+                oldpos = change[0][0]
+                while go != True:
+                    newpos = openpos[random.randint(0,len(openpos)-1)]
+                    aiguess[newpos] = change[0][1]
+                    go = True
+            else:
+                #If the number of blacks is zero
+                while go != True:
+                    newpos = random.randint(0,3)
+                    if newpos != change[0][0]:
+                        aiguess[newpos] = change[0][1]
+                        go = True
         
 
 colors = "RED", "BLUE", "YELLOW", "ORANGE", "PURPLE", "BROWN", "PINK", "NOTHING"
@@ -85,9 +131,7 @@ count2 = 0
 change = []
 noplace = []
 correct = {}
-oldpos = 0
-newpos = 0
-check = 0
+check = []
 aicheck = {}
 go = False
 
@@ -130,49 +174,8 @@ else:
         if len(correct) == 4:
             print("You've lost, the AI guessed your plan")
         else:
-            #Function this
-            #Have the AI create new guess given information
-            aiguess = ["", "", "", ""]
-            if len(change) != 0:
-                #If the number of whites is greater than one
-                if len(change) > 1:
-                    #If the number of blacks is not zero
-                    if len(correct) != 0:
-                        while check < len(change):
-                            oldpos = change[0][0]
-                            noplace = list(correct.keys())
-                            while go != True:
-                                newpos = random.randint(0,3)
-                                if newpos not in noplace:
-                                    aiguess[newpos] = change[0][1]
-                                    go = True
-                    else:
-                        #If the number of blacks is zero
-                        while check < len(change):
-                            oldpos = change[check][0]
-                            newpos = random.randint(0,3)
-                            if newpos != oldpos:
-                                if aiguess[newpos] != "":
-                                    aiguess[newpos] = change[check][1]
-                                    check += 1
-                else:
-                    #If the number of whites is zero
-                    if len(correct) != 0:
-                        #If the number of blacks is not zero
-                        oldpos = change[0][0]
-                        noplace = list(correct.keys())
-                        while go != True:
-                            newpos = random.randint(0,3)
-                            if newpos not in noplace:
-                                aiguess[newpos] = change[0][1]
-                                go = True
-                    else:
-                        #If the number of blacks is zero
-                        while go != True:
-                            newpos = random.randint(0,3)
-                            if newpos != change[0][0]:
-                                aiguess[newpos] = change[0][1]
-                                go = True
+            noplace = list(correct.keys())
+            reposition(go)
         for a in noplace:
             #Place correct guesses back into AI guess
             b = correct[a]
@@ -187,5 +190,4 @@ else:
         change = []
         go = False
         print("The AI guesses " + aiguess[0] + ", " + aiguess[1] + ", " + aiguess[2] + ", " + aiguess[3] + ". Please affirm")
-        rw = playeraffirmation()
         count += 1
