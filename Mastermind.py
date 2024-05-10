@@ -70,6 +70,10 @@ def aiaffirmation(plan, check):
         aicount2 = 0
         aicount += 1
     return affirmation
+
+def reposition():
+    #Reposition the correct colors
+    check = 0
         
 
 colors = "RED", "BLUE", "YELLOW", "ORANGE", "PURPLE", "BROWN", "PINK", "NOTHING"
@@ -130,7 +134,9 @@ else:
             #Have the AI create new guess given information
             aiguess = ["", "", "", ""]
             if len(change) != 0:
+                #If the number of whites is greater than one
                 if len(change) > 1:
+                    #If the number of blacks is not zero
                     if len(correct) != 0:
                         while check < len(change):
                             oldpos = change[0][0]
@@ -141,6 +147,7 @@ else:
                                     aiguess[newpos] = change[0][1]
                                     go = True
                     else:
+                        #If the number of blacks is zero
                         while check < len(change):
                             oldpos = change[check][0]
                             newpos = random.randint(0,3)
@@ -149,7 +156,9 @@ else:
                                     aiguess[newpos] = change[check][1]
                                     check += 1
                 else:
+                    #If the number of whites is zero
                     if len(correct) != 0:
+                        #If the number of blacks is not zero
                         oldpos = change[0][0]
                         noplace = list(correct.keys())
                         while go != True:
@@ -158,6 +167,7 @@ else:
                                 aiguess[newpos] = change[0][1]
                                 go = True
                     else:
+                        #If the number of blacks is zero
                         while go != True:
                             newpos = random.randint(0,3)
                             if newpos != change[0][0]:
