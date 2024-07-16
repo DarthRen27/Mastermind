@@ -81,28 +81,31 @@ def reposition(go):
     for x in allpos:
         if x not in noplace:
             openpos.append(x)
-    #Have the AI create new guess given information
-    aiguess = ["", "", "", ""]
         #If the number of whites is greater than one
     if len(change) > 1:
             #If the number of blacks is not zero
             if len(correct) != 0:
                 while check2 < len(change)-1:
-                    oldpos = change[0][0]
+                    oldpos = change[check2][0]
                     while go != True:
                         newpos = openpos[random.randint(0,len(openpos)-1)]
-                        aiguess[newpos] = change[0][1]
-                        go = True
-                        check2 += 1
+                        if newpos != oldpos:
+                            aiguess[newpos] = change[check2][1]
+                            go = True
+                    go = False
+                    check2 += 1
+                print(4)
+                        
             else:
                 #If the number of blacks is zero
                 while check2 < len(change)-1:
-                    oldpos = change[check][0]
+                    oldpos = change[check2][0]
                     newpos = random.randint(0,3)
                     if newpos != oldpos:
                         if aiguess[newpos] != "":
-                            aiguess[newpos] = change[check][1]
+                            aiguess[newpos] = change[check2][1]
                             check2 += 1
+                print(5)
     else:
             #If the number of whites is one
             if len(correct) != 0:
@@ -110,8 +113,10 @@ def reposition(go):
                 oldpos = change[0][0]
                 while go != True:
                     newpos = openpos[random.randint(0,len(openpos)-1)]
-                    aiguess[newpos] = change[0][1]
-                    go = True
+                    if newpos != oldpos:
+                        aiguess[newpos] = change[0][1]
+                        go = True
+                print(6)
             else:
                 #If the number of blacks is zero
                 while go != True:
@@ -119,6 +124,8 @@ def reposition(go):
                     if newpos != change[0][0]:
                         aiguess[newpos] = change[0][1]
                         go = True
+                print(7)
+    print(aiguess)
         
 
 colors = "RED", "BLUE", "YELLOW", "ORANGE", "PURPLE", "BROWN", "PINK", "NOTHING"
@@ -159,12 +166,13 @@ else:
     plan = player(ai)
     aiguess = aiselection(colors)
     print("The AI guesses " + aiguess[0] + ", " + aiguess[1] + ", " + aiguess[2] + ", " + aiguess[3] + ". Please affirm")
-    while count < 9:
+    while count < 10:
         rw = playeraffirmation()
         #Place the AI's guesses into appropriate places
         while count2 < 4:
             if rw[count2] == "BLACK":
                 correct[count2] = aiguess[count2]
+                print(0)
             elif rw[count2] == "WHITE":
                 change.append((count2,aiguess[count2]))
             else:
@@ -174,8 +182,11 @@ else:
             print("You've lost, the AI guessed your plan")
         else:
             noplace = list(correct.keys())
+            #Wipe the guess clean
+            aiguess = ["", "", "", ""]
             if len(change) != 0:
                 reposition(go)
+                print(3)
         for a in noplace:
             #Place correct guesses back into AI guess
             b = correct[a]
