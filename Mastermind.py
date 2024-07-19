@@ -90,8 +90,9 @@ def reposition(go):
                     while go != True:
                         newpos = openpos[random.randint(0,len(openpos)-1)]
                         if newpos != oldpos:
-                            aiguess[newpos] = change[check2][1]
-                            go = True
+                            if (change[check2][0], change[check2][1]) not in failedlocation:
+                                aiguess[newpos] = change[check2][1]
+                                go = True
                     go = False
                     check2 += 1
                 print(4)
@@ -114,8 +115,9 @@ def reposition(go):
                 while go != True:
                     newpos = openpos[random.randint(0,len(openpos)-1)]
                     if newpos != oldpos:
-                        aiguess[newpos] = change[0][1]
-                        go = True
+                        if (change[0][0], change[0][1]) not in failedlocation:
+                            aiguess[newpos] = change[0][1]
+                            go = True
                 print(6)
             else:
                 #If the number of blacks is zero
@@ -124,7 +126,6 @@ def reposition(go):
                     if newpos != change[0][0]:
                         aiguess[newpos] = change[0][1]
                         go = True
-                print(7)
     print(aiguess)
         
 
@@ -138,6 +139,7 @@ change = []
 noplace = []
 correct = {}
 check = []
+failedlocation = []
 aicheck = {}
 go = False
 
@@ -175,6 +177,7 @@ else:
                 print(0)
             elif rw[count2] == "WHITE":
                 change.append((count2,aiguess[count2]))
+                failedlocation.append((count2,aiguess[count2]))
             else:
                 possibles.remove(aiguess[count2])
             count2 += 1
@@ -186,7 +189,6 @@ else:
             aiguess = ["", "", "", ""]
             if len(change) != 0:
                 reposition(go)
-                print(3)
         for a in noplace:
             #Place correct guesses back into AI guess
             b = correct[a]
