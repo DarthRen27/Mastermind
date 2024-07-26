@@ -74,59 +74,64 @@ def aiaffirmation(plan, check):
 def reposition(go):
     #Reposition the correct colors
     check2 = 0
+    color = ""
     openpos = []
     oldpos = 0
     newpos = 0
     allpos = [0, 1, 2, 3]
-    for x in allpos:
-        if x not in noplace:
-            openpos.append(x)
+    for b in allpos:
+        if b not in noplace:
+            openpos.append(b)
         #If the number of whites is greater than one
     if len(change) > 1:
             #If the number of blacks is not zero
             if len(correct) != 0:
                 while check2 < len(change)-1:
                     oldpos = change[check2][0]
+                    color = change[check2][1]
                     while go != True:
                         newpos = openpos[random.randint(0,len(openpos)-1)]
                         if newpos != oldpos:
-                            if (change[check2][0], change[check2][1]) not in failedlocation:
+                            if (newpos, color) not in failedlocation:
                                 aiguess[newpos] = change[check2][1]
+                                openpos.remove(newpos)
                                 go = True
                     go = False
                     check2 += 1
-                print(4)
                         
             else:
                 #If the number of blacks is zero
                 while check2 < len(change)-1:
                     oldpos = change[check2][0]
-                    newpos = random.randint(0,3)
+                    color = change[check2][1]
+                    newpos = openpos[random.randint(0,len(openpos)-1)]
                     if newpos != oldpos:
-                        if aiguess[newpos] != "":
+                        if (newpos, color) not in failedlocation:
                             aiguess[newpos] = change[check2][1]
+                            openpos.remove(newpos)
                             check2 += 1
-                print(5)
     else:
             #If the number of whites is one
             if len(correct) != 0:
                 #If the number of blacks is not zero
                 oldpos = change[0][0]
+                color = change[0][1]
                 while go != True:
-                    newpos = openpos[random.randint(0,len(openpos)-1)]
+                    newpos = openpos[random.randint(0,len(openpos)-1)]    
                     if newpos != oldpos:
-                        if (change[0][0], change[0][1]) not in failedlocation:
+                        if (newpos, color) not in failedlocation:
                             aiguess[newpos] = change[0][1]
                             go = True
                 print(6)
             else:
                 #If the number of blacks is zero
                 while go != True:
-                    newpos = random.randint(0,3)
+                    newpos = openpos[random.randint(0,len(openpos)-1)]
+                    color = change[0][1]
                     if newpos != change[0][0]:
-                        aiguess[newpos] = change[0][1]
-                        go = True
-    print(aiguess)
+                        if (newpos, color) not in failedlocation:
+                            aiguess[newpos] = change[0][1]
+                            go = True
         
 
 colors = "RED", "BLUE", "YELLOW", "ORANGE", "PURPLE", "BROWN", "PINK", "NOTHING"
@@ -141,6 +146,7 @@ correct = {}
 check = []
 failedlocation = []
 aicheck = {}
+x = 0
 go = False
 
 ai = input("Do you want to be the mastermind? Yes or No: ")
@@ -174,7 +180,6 @@ else:
         while count2 < 4:
             if rw[count2] == "BLACK":
                 correct[count2] = aiguess[count2]
-                print(0)
             elif rw[count2] == "WHITE":
                 change.append((count2,aiguess[count2]))
                 failedlocation.append((count2,aiguess[count2]))
@@ -193,12 +198,15 @@ else:
             #Place correct guesses back into AI guess
             b = correct[a]
             aiguess[a] = b
-        for x in aiguess:
-            if x == "":
+        while x < len(aiguess):
+            if aiguess[x] == "":
                 #Fill the blanks in the guess
                 z = len(possibles) - 1
                 y = random.randint(0, z)
-                x = possibles[y]
+                print(possibles[y])
+                aiguess[x] = possibles[y]
+            x += 1
+                
         count2 = 0
         change = []
         go = False
