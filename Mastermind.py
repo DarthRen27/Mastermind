@@ -122,7 +122,6 @@ def reposition(go):
                         if (newpos, color) not in failedlocation:
                             aiguess[newpos] = change[0][1]
                             go = True
-                print(6)
             else:
                 #If the number of blacks is zero
                 while go != True:
@@ -188,6 +187,7 @@ else:
             count2 += 1
         if len(correct) == 4:
             print("You've lost, the AI guessed your plan")
+            count += 10
         else:
             noplace = list(correct.keys())
             #Wipe the guess clean
@@ -206,9 +206,10 @@ else:
                 print(possibles[y])
                 aiguess[x] = possibles[y]
             x += 1
-                
-        count2 = 0
-        change = []
-        go = False
-        print("The AI guesses " + aiguess[0] + ", " + aiguess[1] + ", " + aiguess[2] + ", " + aiguess[3] + ". Please affirm")
-        count += 1
+        if count < 10:
+            count2 = 0
+            x = 0
+            change = []
+            go = False
+            print("The AI guesses " + aiguess[0] + ", " + aiguess[1] + ", " + aiguess[2] + ", " + aiguess[3] + ". Please affirm")
+            count += 1
